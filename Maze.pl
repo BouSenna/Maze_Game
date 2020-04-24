@@ -1,3 +1,14 @@
+dim(9, 10).
+goal([['X','X', 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ],
+	  [ 1 ,'X', 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ],
+	  [ 1 ,'X', 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ],
+	  [ 1 ,'X','X','X', 1 , 1 ,'X','X','X', 1 ],
+	  [ 1 , 0 , 1 ,'X', 1 , 1 ,'X', 1 ,'X', 1 ],
+	  [ 1 , 0 , 1 ,'X','X','X','X', 1 ,'X', 1 ],
+	  [ 1 , 0 , 1 , 0 , 1 , 1 , 1 , 1 ,'X','X'],
+	  [ 1 , 0 , 0 , 2 , 1 , 1 , 1 , 1 , 1 , 1 ],
+	  [ 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ]]).
+ 
  % Main predicate.
 maze(Maze, Solution):-
 	heuristicFunction(Maze, H),
@@ -52,7 +63,7 @@ moves(Curr_Maze, Position, Diamonds, G, Open, Visited, [New_Maze, New_Position, 
 	\+ member([_, New_Position, _, _, _, _], Visited),
 	heuristicFunction(New_Maze, H),
 	New_G is G + 1,
-	F is H + G.
+	F is H + New_G.
 
 
 % This predicate calculates H(n) by counting the number of Diamonds (2s) in the given maze. 
