@@ -1,3 +1,15 @@
+getchildren(Maze, Position, Diamonds, G, Open, Visited, Children):-
+	findall(X, moves(Maze, Position, Diamonds, G, Open, Visited, X), Children).
+
+moves(Curr_Maze, Position, Diamonds, G, Open, Visited, [New_Maze, New_Position, New_Diamonds, New_G, H, F]):-
+	move([Position, Diamonds, Curr_Maze], [New_Position, New_Diamonds, New_Maze]),
+	\+ member([_, New_Position, _, _, _, _], Open),
+	\+ member([_, New_Position, _, _, _, _], Visited),
+	heuristicFunction(New_Maze, H),
+	New_G is G + 1,
+	F is H + G.
+
+
 % This predicate calculates H(n) by counting the number of Diamonds (2s) in the given maze. 
 heuristicFunction(Maze, Diamonds):-
 	count_diamonds(Maze, 0, Diamonds).
