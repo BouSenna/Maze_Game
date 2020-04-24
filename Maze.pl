@@ -1,3 +1,10 @@
+ % Main predicate.
+maze(Maze, Solution):-
+	heuristicFunction(Maze, H),
+	goal(Goal),
+	maze_solver([[Maze, [0, 0], 0, 0, H, H]], [[]], Goal, Solution), 
+	!.
+
 maze_solver(_, [[Goal, _, Diamonds, _, _, _]|_], Goal, Diamonds).
 
 maze_solver(Open, Visited, Goal, Solution):-
