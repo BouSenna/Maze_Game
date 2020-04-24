@@ -1,3 +1,11 @@
+maze_solver(_, [[Goal, _, Diamonds, _, _, _]|_], Goal, Diamonds).
+
+maze_solver(Open, Visited, Goal, Solution):-
+	getBestAndRest(Open, [Maze, Position, Diamonds, G, H, F], RestofOpen),
+	getchildren(Maze, Position, Diamonds, G, Open, Visited, Children),
+	append(Children, RestofOpen, New_Open),
+	maze_solver(New_Open, [[Maze, Position, Diamonds, G, H, F]|Visited], Goal, Solution).
+
 % This predicate gets the best child to expand, return it and remove it from the open list.
 getBestAndRest([Child], Child, []).
 getBestAndRest(Open, Best, RestofOpen):-
