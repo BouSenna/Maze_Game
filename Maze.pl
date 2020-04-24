@@ -1,3 +1,33 @@
+% This predicate gets the best child to expand, return it and remove it from the open list.
+getBestAndRest([Child], Child, []).
+getBestAndRest(Open, Best, RestofOpen):-
+	getBest(Open, Best),
+	getRest(Open, Best, RestofOpen).
+
+
+getBest([Child], Child):-
+	!.
+getBest([Child|T], Best):-
+	getBest(T, Temp),
+	findBestChild(Child, Temp, Best).
+
+
+findBestChild([Maze, Position, Diamonds, G, H, F1], [_, _, _, _, _, F2], [Maze, Position, Diamonds, G, H, F1]):-
+	F1 < F2,
+	!.
+
+findBestChild(_, Child, Child).
+
+
+getRest([], _, []).
+getRest([Child|T], Child, V):-
+	!,
+	getRest(T, Child, V).
+
+getRest([H|T], Child, [H|T1]):-
+	getRest(T, Child, T1).
+
+
 getchildren(Maze, Position, Diamonds, G, Open, Visited, Children):-
 	findall(X, moves(Maze, Position, Diamonds, G, Open, Visited, X), Children).
 
