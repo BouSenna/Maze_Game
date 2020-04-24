@@ -1,3 +1,20 @@
+% This predicate calculates H(n) by counting the number of Diamonds (2s) in the given maze. 
+heuristicFunction(Maze, Diamonds):-
+	count_diamonds(Maze, 0, Diamonds).
+
+% This predicate counts the number of diamonds left.
+count_diamonds([], Diamonds, Diamonds).
+
+count_diamonds([[]|T], Counter, Diamonds):-
+	count_diamonds(T, Counter, Diamonds).
+
+count_diamonds([[H|T1]|T2], Counter, Diamonds):-
+	(H = 2 -> Counter1 is Counter + 1 ;
+			  Counter1 is Counter),
+	count_diamonds([T1|T2], Counter1, Diamonds).
+
+
+
 % All the possible moves
 % Move Right
 move([[X, Y], Diamonds, Curr_Maze], [[X, New_Y], New_Diamonds, New_Maze]):-
