@@ -1,13 +1,5 @@
 dim(9, 10).
-goal([['X','X', 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ],
-      [ 1 ,'X', 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ],
-      [ 1 ,'X', 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ],
-      [ 1 ,'X','X','X', 1 , 1 ,'X','X','X', 1 ],
-      [ 1 , 0 , 1 ,'X', 1 , 1 ,'X', 1 ,'X', 1 ],
-      [ 1 , 0 , 1 ,'X','X','X','X', 1 ,'X', 1 ],
-      [ 1 , 0 , 1 , 0 , 1 , 1 , 1 , 1 ,'X','X'],
-      [ 1 , 0 , 0 , 2 , 1 , 1 , 1 , 1 , 1 , 1 ],
-      [ 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ]]).
+goal([6, 9]).
  
  % Main predicate.
 maze(Maze, Solution):-
@@ -16,7 +8,7 @@ maze(Maze, Solution):-
 	maze_solver([[Maze, [0, 0], 0, 0, H, H]], [[]], Goal, Solution), 
 	!.
 
-maze_solver(_, [[Goal, _, Diamonds, _, _, _]|_], Goal, Diamonds).
+maze_solver(_, [[_, Goal, Diamonds, _, _, _]|_], Goal, Diamonds).
 
 maze_solver(Open, Visited, Goal, Solution):-
 	getBestAndRest(Open, [Maze, Position, Diamonds, G, H, F], RestofOpen),
