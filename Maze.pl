@@ -2,19 +2,19 @@ dim(9, 10).
 goal([6, 9]).
  
  % Main predicate.
-maze(Maze, Solution):-
+maze(Maze, NumberOfDiamonds, Solution):-
 	heuristicFunction(Maze, H),
 	goal(Goal),
-	maze_solver([[Maze, [0, 0], 0, 0, H, H]], [[]], Goal, Solution), 
+	maze_solver([[Maze, [0, 0], 0, 0, H, H]], [[]], Goal, NumberOfDiamonds, Solution), 
 	!.
 
-maze_solver(_, [[_, Goal, Diamonds, _, _, _]|_], Goal, Diamonds).
+maze_solver(_, [[Maze, Goal, Diamonds, _, _, _]|_], Goal, Diamonds, Maze).
 
-maze_solver(Open, Visited, Goal, Solution):-
+maze_solver(Open, Visited, Goal, NumberOfDiamonds, Solution):-
 	getBestAndRest(Open, [Maze, Position, Diamonds, G, H, F], RestofOpen),
 	getchildren(Maze, Position, Diamonds, G, Open, Visited, Children),
 	append(Children, RestofOpen, New_Open),
-	maze_solver(New_Open, [[Maze, Position, Diamonds, G, H, F]|Visited], Goal, Solution).
+	maze_solver(New_Open, [[Maze, Position, Diamonds, G, H, F]|Visited], Goal, NumberOfDiamonds, Solution).
 
 % This predicate gets the best child to expand, return it and remove it from the open list.
 getBestAndRest([Child], Child, []).
